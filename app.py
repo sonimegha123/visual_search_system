@@ -11,6 +11,14 @@ app = FastAPI()
 app.mount("/images", StaticFiles(directory="images"), name="images")
 templates = Jinja2Templates(directory="templates")
 
+@app.get("/health")
+def health():
+    """Simple health check endpoint."""
+    return {
+        "status": "ok",
+        "message": "Service is running"
+    }
+    
 @app.get("/")
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
