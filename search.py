@@ -4,11 +4,9 @@ import sqlite3
 import torch
 import clip
 import faiss
-import numpy as np
 import time
 
-from explain import explain_image
-from llm import generate_explanation
+
 
 # --- Config ---
 IMAGE_DIR = "images"
@@ -48,34 +46,3 @@ def search(query, top_k=5):
     print(f"Search completed in {end_time - start_time:.3f} seconds")  # print latency
 
     return results
-    for idx, score in zip(indices[0], distances[0]):
-        c.execute("SELECT filename, caption, explanation FROM images LIMIT 1 OFFSET ?", (int(idx),))
-        row = c.fetchone()
-        if row:
-            filename, caption, explanation = row
-
-            if not caption:
-                image_path = os.path.join(IMAGE_DIR, filename)
-                caption = explain_image(image_path)
-                c.execute("UPDATE images SET caption=? WHERE filename=?", (caption, filename))
-                conn.commit()
-
-            if not explanation:
-                explanation = generate_explanation(query, caption)
-                c.execute("UPDATE images SET explanation=? WHERE filename=?", (explanation, filename))
-                conn.commit()
-
-            results.append({
-                "filename": filename,
-                "score": float(score),
-                "caption": caption,
-                "explanation": explanation
-            })
-    conn.close()
-
-    elapsed = time.time() - start_time
-    print(f"Search completed in {elapsed:.2f} seconds")
-    return results
-
-
-
