@@ -4,10 +4,11 @@ services:
       context: ./src
     container_name: visual_search_app
     ports:
-      - "8000:8000"
+      - "8001:8001"
     volumes:
       - ./src/images:/app/images
       - ./src/images.db:/app/images.db
       - ./src/faiss_index.bin:/app/faiss_index.bin
     environment:
       - DEVICE=cpu
+    restart: unless-stopped
