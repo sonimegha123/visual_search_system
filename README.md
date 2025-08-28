@@ -1,4 +1,4 @@
-# 🖼️ Visual Search Engine  
+# 🖼️ Visual Search System  
 A lightweight image search system that lets you find images using natural language queries. Built with CLIP, BLIP, FAISS, and FastAPI, and fully containerized with Docker.  
   
 
