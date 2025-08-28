@@ -2,7 +2,7 @@
 A lightweight image search system that lets you find images using natural language queries. Built with CLIP, BLIP, FAISS, and FastAPI, and fully containerized with Docker.  
   
 
-**How It Works**
+**How It Works**  
 **Indexing (offline)**  
 Generate CLIP embeddings for images.  
 Generate BLIP captions for context.  
